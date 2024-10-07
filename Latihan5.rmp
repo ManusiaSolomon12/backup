@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?><process version="10.3.000">
+  <context>
+    <input/>
+    <output/>
+    <macros/>
+  </context>
+  <operator activated="true" class="process" compatibility="10.3.000" expanded="true" name="Process">
+    <parameter key="logverbosity" value="init"/>
+    <parameter key="random_seed" value="2001"/>
+    <parameter key="send_mail" value="never"/>
+    <parameter key="notification_email" value=""/>
+    <parameter key="process_duration_for_mail" value="30"/>
+    <parameter key="encoding" value="SYSTEM"/>
+    <process expanded="true">
+      <operator activated="true" class="read_csv" compatibility="10.3.000" expanded="true" height="68" name="Read CSV La ode ian" width="90" x="179" y="34">
+        <parameter key="csv_file" value="C:\Users\laode\OneDrive\Pictures\Documents\DataMining\electronics-a-100k.csv"/>
+        <parameter key="column_separators" value=";"/>
+        <parameter key="trim_lines" value="false"/>
+        <parameter key="multiline_text" value="false"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
+        <parameter key="escape_character" value="\"/>
+        <parameter key="skip_comments" value="true"/>
+        <parameter key="comment_characters" value="#"/>
+        <parameter key="starting_row" value="1"/>
+        <parameter key="parse_numbers" value="true"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="infinity_representation" value=""/>
+        <parameter key="date_format" value="M/d/yy h:mm a"/>
+        <parameter key="use_header_row" value="true"/>
+        <parameter key="header_row" value="1"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="encoding" value="windows-1252"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="event_time.true.date_time.attribute"/>
+          <parameter key="1" value="order_id.true.polynominal.attribute"/>
+          <parameter key="2" value="product_id.true.polynominal.attribute"/>
+          <parameter key="3" value="category_id.true.polynominal.attribute"/>
+          <parameter key="4" value="category_code.true.polynominal.attribute"/>
+          <parameter key="5" value="brand.true.polynominal.attribute"/>
+          <parameter key="6" value="price.true.real.attribute"/>
+          <parameter key="7" value="user_id.true.polynominal.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+      </operator>
+      <operator activated="true" class="read_csv" compatibility="10.3.000" expanded="true" height="68" name="Data User" width="90" x="179" y="187">
+        <parameter key="csv_file" value="C:\Users\laode\OneDrive\Pictures\Documents\DataMining\kz_user.CSV"/>
+        <parameter key="column_separators" value=";"/>
+        <parameter key="trim_lines" value="false"/>
+        <parameter key="multiline_text" value="false"/>
+        <parameter key="use_quotes" value="true"/>
+        <parameter key="quotes_character" value="&quot;"/>
+        <parameter key="escape_character" value="\"/>
+        <parameter key="skip_comments" value="true"/>
+        <parameter key="comment_characters" value="#"/>
+        <parameter key="starting_row" value="1"/>
+        <parameter key="parse_numbers" value="true"/>
+        <parameter key="decimal_character" value="."/>
+        <parameter key="grouped_digits" value="false"/>
+        <parameter key="grouping_character" value=","/>
+        <parameter key="infinity_representation" value=""/>
+        <parameter key="date_format" value=""/>
+        <parameter key="use_header_row" value="true"/>
+        <parameter key="header_row" value="1"/>
+        <parameter key="first_row_as_names" value="true"/>
+        <list key="annotations"/>
+        <parameter key="time_zone" value="SYSTEM"/>
+        <parameter key="locale" value="English (United States)"/>
+        <parameter key="encoding" value="windows-1252"/>
+        <parameter key="read_all_values_as_polynominal" value="false"/>
+        <list key="data_set_meta_data_information">
+          <parameter key="0" value="ï»¿user_id.true.polynominal.attribute"/>
+          <parameter key="1" value="first_name.true.polynominal.attribute"/>
+          <parameter key="2" value="last_name.true.polynominal.attribute"/>
+          <parameter key="3" value="city.true.polynominal.attribute"/>
+        </list>
+        <parameter key="read_not_matching_values_as_missings" value="false"/>
+      </operator>
+      <operator activated="true" class="concurrency:join" compatibility="10.3.000" expanded="true" height="82" name="Join" width="90" x="380" y="34">
+        <parameter key="remove_double_attributes" value="true"/>
+        <parameter key="join_type" value="right"/>
+        <parameter key="use_id_attribute_as_key" value="false"/>
+        <list key="key_attributes">
+          <parameter key="user_id" value="ï»¿user_id"/>
+        </list>
+        <parameter key="keep_both_join_attributes" value="false"/>
+      </operator>
+      <connect from_op="Read CSV La ode ian" from_port="output" to_op="Join" to_port="left"/>
+      <connect from_op="Data User" from_port="output" to_op="Join" to_port="right"/>
+      <connect from_op="Join" from_port="join" to_port="result 1"/>
+      <portSpacing port="source_input 1" spacing="0"/>
+      <portSpacing port="sink_result 1" spacing="0"/>
+      <portSpacing port="sink_result 2" spacing="0"/>
+    </process>
+  </operator>
+</process>
